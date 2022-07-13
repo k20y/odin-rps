@@ -85,5 +85,3 @@ function game()
     if(userScore > computerScore) alert("You are the winner!");
     else alert("OMORI is the winner!");
 }
-
-game();
