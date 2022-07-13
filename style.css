@@ -1,0 +1,28 @@
+
+
+body
+{
+    margin: 0;
+    box-sizing: border-box;
+    flex-direction: column;
+}
+
+body,header,footer,main
+{
+    display: flex;
+}
+
+main
+{
+    flex-direction: column;
+}
+
+.intro, .game
+{
+    display: flex;
+}
+
+.game
+{
+    flex-direction: column;
+}
