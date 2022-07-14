@@ -1,7 +1,19 @@
 
+@font-face {
+    font-family: 'OMORI_GAME';
+    src: url('media/OMORI_GAME.woff2') format('woff2'),
+        url('media/OMORI_GAME.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
 
 body
 {
+    font-family: 'OMORI_GAME';
+    font-size: 20px;
+    min-height: 100vh;
     margin: 0;
     box-sizing: border-box;
     flex-direction: column;
@@ -12,9 +24,23 @@ body,header,footer,main
     display: flex;
 }
 
+header
+{
+    justify-content: center;
+}
+
+h1,p
+{
+    text-align: center;
+    margin: 0;
+    font-size: inherit;
+    font-weight: inherit;
+}
+
 main
 {
     flex-direction: column;
+    flex: 1;
 }
 
 .intro, .game
@@ -22,7 +48,46 @@ main
     display: flex;
 }
 
+.intro
+{
+    justify-content: center;
+    gap: 3em;
+}
+
+.intro p
+{
+    max-width: 40%;
+}
+
 .game
 {
     flex-direction: column;
+    align-items: center;
+    gap: 1.5em;
+}
+
+.icons
+{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.icons .omori
+{
+    margin-top: 2em;
+}
+
+.icons .last-row
+{
+    display: flex;
+    gap: 20em;
+}
+
+button
+{
+    font-family: 'OMORI_GAME';
+    font-size: 1.5em;
+    color: white;
+    background-color: black;
 }
