@@ -29,14 +29,29 @@
             <div class="game">
 
                 <div class="icons">
-
-                    <img src="media/KEL_HAPPY.webp">
-                    <img src="media/OMORI_NEUTRAL.webp">
-                    <img src="media/Herosad.webp">
-                    <img src="media/AUBREY_ANGRY.webp">
+                    <div> <input class="h" type="image" src="media/Happy.webp"/> </div>
+                    <div> <img class="omori" src="media/Omori.webp"> </div>
+                    <div class="last-row"> 
+                        <input class="s" type="image" src="media/Sad.webp"/>
+                        <input class="a" type="image" src="media/Angry.webp"/> 
+                    </div>
 
                 </div>
 
+                <div>
+
+                    <p class="output"></p>
+
+                    <div>
+
+                        <div>
+                            <p>Your score: <section class="uScore">0</section> </p>
+                            <button class="reset">RESET</button>
+                            <p>OMORI's score: <section class="cScore">0</section> </p>
+                        </div>
+
+                    </div>
+                </div>
             </div>
 
         </main>
@@ -48,7 +63,7 @@
         </footer>
 
 
-        <script src="script.js"></script>
+        <script async src="script.js"></script>
 
     </body>
 
