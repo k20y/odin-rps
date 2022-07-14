@@ -1,4 +1,17 @@
 
+const computerOutput = document.querySelector('.omori');
+const bttns = document.querySelectorAll('input');
+const resetBttn = document.querySelector('.reset');
+const output = document.querySelector('.output');
+
+const userScoreText = document.querySelector('.uScore');
+const computerScoreText = document.querySelector('.cScore');
+const computerOutputPath = computerOutput.src;
+
+let userScore = 0,
+    computerScore = 0;
+let winner = false;
+
 function computerPlay()
 {
     let rng = Math.floor(Math.random() * 3);
@@ -9,28 +22,6 @@ function computerPlay()
         case 1: return 'a';
         case 2: return 's';
     }
-}
-
-function userPlay()
-{
-    let input="";
-    do
-    {
-        input=prompt("Choose your emotion");
-        input=input.toLowerCase();
-
-        switch(input)
-        {
-            default:
-                alert(`${input} is not a valid emotion. Try again`);
-                input="";
-                break;
-            case 'happy': return 'h';
-            case 'angry': return 'a';
-            case   'sad': return 's';
-        }
-
-    }while(!input);
 }
 
 function getEmotion(input)
@@ -46,42 +37,86 @@ function getEmotion(input)
 
 function round(userInput,computerInput)
 {
+    let computerEmotion=getEmotion(computerInput),
+    userEmotion=getEmotion(userInput);
+    
+    //Change OMORI's emotion
+    computerOutput.src = `${computerOutput.src.slice(0, -5)}-${computerEmotion}.webp`;
+    
     if(userInput == computerInput)
     {
-        alert("It's a tie!");
+        output.textContent = "It's a tie!";
         return 'tie';
     }
-
-    let computerEmotion=getEmotion(computerInput),
-        userEmotion=getEmotion(userInput);
-
 
     switch(userInput+computerInput)
     {
         case 'ha':
         case 'as':
         case 'sh':
-            alert(`You win! ${userEmotion} beats ${computerEmotion}!`);
-            return 'user';
-
-        default:
-            alert(`You lose! ${computerEmotion} beats ${userEmotion}!`);
-            return 'computer';
+            output.textContent = `You win! ${userEmotion} beats ${computerEmotion}!`;
+            userScore++;
+            break;
+            default:
+            output.textContent = `You lose! ${computerEmotion} beats ${userEmotion}!`;
+            computerScore++;
+            break;
     }
 }
 
-function game()
+function reset()
 {
-    let userScore=0,
-        computerScore=0;
+    unselect();
+    output.textContent='';
+    userScore=0,computerScore=0;
+    winner = false;
+    userScoreText.textContent = '0';
+    computerScoreText.textContent = '0';
+}
 
-    while(userScore < 5 && computerScore < 5)
+resetBttn.addEventListener('click', reset);
+
+bttns.forEach(bttn => {
+    
+    bttn.addEventListener('click', () =>{
+
+        //ignore if someone won already
+        if(winner) return;
+
+        //unselect the other buttons
+        unselect();
+
+        //select the clicked button
+        bttn.src = bttn.src.slice(0,-5) + '-Selected.webp';
+
+        //simulate the round
+        round(bttn.className,computerPlay());
+        
+        //update the score
+        userScoreText.textContent = userScore;
+        computerScoreText.textContent = computerScore;
+
+        //check for a winner
+
+        if(userScore >= 5 || computerScore >= 5)
+        {
+            winner = true;
+            output.textContent =`${(userScore > computerScore) ? 'You' : 'OMORI'} won!`;
+        }
+    });
+
+});
+
+function unselect()
+{
+    computerOutput.src = computerOutputPath;
+    bttns.forEach(bttn =>{
+    
+    if(bttn.src.includes('Selected'))
     {
-        let winner=round(userPlay(),computerPlay());
-        if(winner == 'user') userScore++;
-        else if(winner == 'computer') computerScore++;
+        //we remove the last 14 characters and concatenate .webp
+        bttn.src = bttn.src.slice(0,-14) + '.webp';
     }
 
-    if(userScore > computerScore) alert("You are the winner!");
-    else alert("OMORI is the winner!");
+    });
 }
